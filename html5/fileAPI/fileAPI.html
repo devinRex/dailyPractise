@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>files集合</title>
+</head>
+<body>
+<input type="file" id="files-list" multiple="multiple" />
+
+
+<script>
+	var filesList = document.getElementById("files-list");
+	filesList.addEventListener("change", function(event) {
+		//var files = event.targetName.files;
+		console.log(event.type);
+		console.log(event.target.files);
+		var files = event.target.files;
+		var i = 0,
+			len = files.length;
+		while(i < len) {
+			console.log(files[i].name + " (" + files[i].type + ", " + files[i].size + " bytes) ");
+			i++;
+		}
+	});
+</script>
+</body>
+</html>

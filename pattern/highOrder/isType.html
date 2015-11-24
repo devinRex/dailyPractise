@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>isType</title>
+</head>
+<body>
+	<script>
+	// var isType = function (type) {
+	// 	return function (obj) {
+	// 		return Object.prototype.toString.call(obj) === "[object " + type + "]";
+	// 	}
+	// };
+	// var isArray = isType("Array");
+	// var isString = isType("String");
+	// console.log(isString("1"));
+	var Type = {};
+	for(var i = 0, type; type = ['String', 'Array', 'Number'][i++];) {
+		(function (type) {
+			Type["is" + type] = function (obj) {
+				return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+			};
+		}(type));
+	}
+	Type.isArray[[]];
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串重复字数</title>
+</head>
+<body>
+<script>
+	var jschars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+		function generateMixed(n) {
+		    var res = "";
+		    for(var i = 0; i < n ; i ++) {
+		        var id = Math.ceil(Math.random()*26);
+		        res += jschars[id];
+		    }
+		    return res;
+		} 
+	var str = generateMixed(20000000);
+	function getRepeatNum1(str) {
+		var len = str.length,
+			results = [],
+			firstLetter = "";
+		while(str !== ""){
+			firstLetter = str.slice(0, 1);
+			str = str.replace(new RegExp(firstLetter, "g"), "");
+			results.push(len - str.length);
+			len = str.length;
+		}
+		return results;
+	} 
+	
+	function getRepeatNum(str){		
+		if(str === "") return [];
+		var firstLetter = "",
+			len = str.length,
+			results = [];
+		firstLetter = str.slice(0, 1);
+		str = str.replace(new RegExp(firstLetter, "g"), "");
+		results.push(len - str.length);
+		return results.concat(arguments.callee(str));	
+	}
+</script>
+	
+</body>
+</html>

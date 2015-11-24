@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>foreach</title>
+</head>
+<body>
+<script>
+	// if(!Array.prototype.forEach){
+	// 	Array.prototype.forEach = function(callback, thisArg){
+	// 		var k = 0;
+	// 		if(this === null) {
+	// 			throw new TypeError( "this is null or not defined" );
+	// 		}
+	// 		if ( {}.toString.call(callback) !== "[object Function]" ) {
+	// 	      throw new TypeError( callback + " is not a function" );
+	// 	    }
+	// 		var O = Object(this);
+	// 		var len = O.length >> 0;
+	// 		while(k < len) {
+	// 			var kValue;
+	// 			if(Object.prototype.hasOwnProperty.call(O,k)){
+	// 				kValue = O[k];
+	// 				callback.call(thisArg, kValue, k, O)
+	// 			}
+	// 			k++;
+	// 		}
+	// }
+	// //underscore下的方法
+	// var _= {};
+	// var nativeKeys  = Object.keys,
+	// 	hasOwnProperty   = Object.prototype.hasOwnProperty;
+	//  _.has = function(obj, key) {
+	//     return hasOwnProperty.call(obj, key);
+	//   };
+	// _.keys = function(obj) {
+	//     if (!_.isObject(obj)) return [];
+	//     if (nativeKeys) return nativeKeys(obj);
+	//     var keys = [];
+	//     for (var key in obj) if (_.has(obj, key)) keys.push(key);
+	//     return keys;
+	// };
+	// _.isObject = function(obj) {
+	//     return obj === Object(obj);
+	// };
+	// var each = _.each = _.forEach = function(obj, iterator, context) {
+	// 	if(obj == null) return obj;
+	// 	if(nativeForEach && obj.forEach === nativeForEach){
+	// 		obj.forEach(iterator, context);
+	// 	} else if (obj.length === +obj.length) {
+	// 		for(var i = 0, length = obj.length; i < length; i++) {
+	// 			//这里的breaker是为后面的map等属性开路
+	// 			if(iterator.call(context, obj[i], i, obj) === breaker) {
+	// 				return;
+	// 			}
+	// 		}
+	// 	} else {
+	// 		var keys = _.keys(obj);
+	// 		for(var i = 0, length = keys.length; i < length; i++) {
+	// 			if(iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
+	// 		}
+	// 	}
+	// 	return obj;
+	// };
+	// //新的一说
+
+	var breaker = {};
+
+	//if(typeof Array.prototype.forEach != "function") {
+		Array.prototype.forEach1 = function(fn, context) {
+			for(var k = 0, length = this.length; k < length; k++){
+				if(typeof fn === "function" && Object.prototype.hasOwnProperty.call(this,k)) {
+					if(fn.call(context, this[k], k, this) === breaker) {
+						return;
+					}
+				}
+			}
+		}
+	//}
+	//if(typeof Array.prototype.map != "function") {
+		Array.prototype.map1 = function(fn, context) {
+			var results = [];
+			this.forEach(function(value, index, list){
+				results.push(fn.call(context, value, index, list));
+			});
+			return results;
+		}
+	//}
+	//if(typeof Array.prototype.filter != "function") {
+		Array.prototype.filter1 = function(fn, context) {
+			var results = [];
+			this.forEach1(function(value, index, list){
+				fn.call(context, value, index, list) && results.push(value);
+			});
+			return results;
+		}
+	//}
+
+	/*数组简约式(Array comprehensions)
+	var zhangEmails = [user.email for each (user in users) if (/^zhang/.test(user.email)) ];
+
+console.log(zhangEmails); // [zhang@email.com]*/
+	//if(typeof Array.prototype.some != "function") {
+		Array.prototype.some1 = function(fn, context) {
+			var passed = false;
+			this.forEach1(function(value, index, list){
+				if(passed || (passed = fn.call(context, value, index, list))) {
+					return breaker;
+				}
+			});
+			return !!passed;
+		}
+	//}
+	//if(typeof Array.prototype.every != "function") {
+		Array.prototype.every1 = function(fn, context) {
+			var passed = true;
+			this.forEach1(function(value, index, list){
+				if(!(passed = fn.call(context, value, index, list))){
+					return breaker;
+				}
+			});
+			return !!passed;
+		}
+	//}
+
+	//if(typeof Array.prototype.reduce != "function") {
+		Array.prototype.reduce1 = function(callback, initialValue) {
+			var previous = initialValue,
+				k = 0,
+				length = this.length;
+
+			if(typeof initialValue === "undefined") {
+				previous = this[0];
+				k = 1;
+			}	
+
+			if(typeof callback === "function") {
+				for(k; k < length; k++) {
+					this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+				}
+			}
+			return previous;
+		}
+	//}
+	// if(typeof Array.prototype.reduceRight != "function") {
+		Array.prototype.reduceRight1 = function(callback, initialValue) {
+			var length = this.length,
+				previous = initialValue,
+				k = length - 1;
+
+			if(typeof initialValue === "undefined") {
+				previous = this[length-1];
+				k--;
+			}	
+
+			if(typeof callback === "function") {
+				for(k; k > -1; k--) {
+					this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+				}
+			}
+			return previous;
+		}
+	// }
+	//if (typeof Array.prototype.indexOf != "function") {
+	  Array.prototype.indexOf1 = function (searchElement, fromIndex) {
+	    var index = -1;
+	    fromIndex = fromIndex * 1 || 0;
+	    typeof fromIndex == 'number'
+
+	    for (var k = 0, length = this.length; k < length; k++) {
+	      if (k >= fromIndex && this[k] === searchElement) {
+	          index = k;
+	          break;
+	      }
+	    }
+	    return index;
+	  };
+	//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+	
+</body>
+</html>

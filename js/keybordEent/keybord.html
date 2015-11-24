@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试键盘事件</title>
+</head>
+<body>
+	<input type="text" id="test" autocomplete = "off">
+	<script>
+		var test = document.getElementById("test");
+		test.onkeyup = function(){
+			console.log("keyup");
+		}
+		test.onkeydown = function(){
+
+			console.log("keydown");
+		}
+		test.onkeypress = function(){
+			
+			console.log("keypress");
+		}
+	</script>
+</body>
+</html>

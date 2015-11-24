@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>插入排序</title>
+</head>
+<body>
+	<script>
+	var arr = [6,10,0];
+	function insertionSort(arr){
+		var temp,inner;
+		for(var outer = 1; outer <= arr.length - 1; outer++ ) {
+			temp = arr[outer];
+			inner = outer;
+			while(inner > 0 && (arr[inner - 1] >= temp)){
+				arr[inner] = arr[inner-1];
+				--inner;
+			}
+			arr[inner] = temp;
+		}
+	}
+	insertionSort(arr);
+	console.log(arr);
+
+	// function insertionSort(arr){
+	// 	var temp,inner;
+	// 	for(var outer = 1; outer <= arr.length - 1; outer++){
+	// 		temp = arr[outer];
+	// 		inner = outer;
+	// 		while(inner > 0 && (arr[inner-1] >= temp)) {
+	// 			arr[inner] = arr[inner-1];
+	// 			--inner;
+	// 		}
+	// 		arr[inner] = temp;
+	// 	}
+	// }
+	function insertionSort(arr){
+		var temp,inner;
+		for(var outer = 1; outer <= arr.length - 1; outer++){
+			temp = arr[outer];
+			inner = outer;
+			while(inner > 0 && (arr[inner - 1] >= temp)) {
+				arr[inner] = arr[inner-1];
+				--inner;
+			}
+			arr[inner] = temp;
+		}
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>innerHTML</title>
+</head>
+<body>
+	<div id="content">
+		<p>This is a
+			<stong>paragraph</stong>
+			with a list following it.
+		</p>
+		<ul>
+			<li>Item1</li>
+			<li>Item2</li>
+			<li>Item3</li>
+		</ul>
+	</div>
+	<script>
+	var div = document.getElementById("content");
+	console.log(div.innerHTML);
+	console.log(div.outerHTML);
+	</script>
+</body>
+</html>

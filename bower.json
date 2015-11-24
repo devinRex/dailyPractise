@@ -1,0 +1,15 @@
+{
+  "name": "dailyPractise",
+  "version": "0.0.0",
+  "authors": [
+    "devinRex <605493682@qq.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	function change(url) {
+		var turl=((/\?/g).test(url))?url.replace(/\?.*/,"")+"?"+encodeURIComponent(url.replace(/\S*\?/,"")):url;
+		console.log(turl);
+	}
+	change("truck/truck-map.html?truckid=19B15E4A1DC438E264C85B11EBD3CC2A&lng=113.92256241787&lat=22.963501957196&carnum=川A8YL76&gpsno=90000216&drivername=杨柳桦樱qwieuy*(! dj UAY&address=广东省东莞市东莞市市辖区富康路");
+	
+	</script>
+</body>
+</html>

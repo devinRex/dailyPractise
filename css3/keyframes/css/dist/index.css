@@ -1,0 +1,78 @@
+.car{
+	-webkit-animation-name: drive;
+	animation-name: drive;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-timing-function: ease-in;
+	animation-timing-function: ease-in;
+	-webkit-animation-iteration-count: 2;
+	animation-iteration-count: 2;
+	-webkit-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+}
+@-webkit-keyframes drive{
+	from{
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+	}
+	to{
+		-webkit-transform: translateX(400px);
+		transform: translateX(400px);
+	}
+}
+@keyframes drive{
+	from{
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+	}
+	to{
+		-webkit-transform: translateX(400px);
+		transform: translateX(400px);
+	}
+}
+
+body{
+	margin:3em 10%;
+	background: #333;
+}
+
+.ball{
+	-webkit-animation-name: ballmove;
+	animation-name: ballmove;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-iteration-count:1;
+	animation-iteration-count:1;
+	-webkit-animation-delay:2S;
+	animation-delay:2S;
+	-webkit-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+}
+@-webkit-keyframes ballmove {
+	0% {
+		-webkit-transform: translateX(0) rotate(0);
+		transform: translateX(0) rotate(0);
+	}
+	20%{
+		-webkit-transform: translateX(-10px) rotate(-0.5turn);
+		transform: translateX(-10px) rotate(-0.5turn);
+	}
+	100%{
+		-webkit-transform: translateX(450px) rotate(2turn);
+		transform: translateX(450px) rotate(2turn);
+	}
+}
+@keyframes ballmove {
+	0% {
+		-webkit-transform: translateX(0) rotate(0);
+		transform: translateX(0) rotate(0);
+	}
+	20%{
+		-webkit-transform: translateX(-10px) rotate(-0.5turn);
+		transform: translateX(-10px) rotate(-0.5turn);
+	}
+	100%{
+		-webkit-transform: translateX(450px) rotate(2turn);
+		transform: translateX(450px) rotate(2turn);
+	}
+}

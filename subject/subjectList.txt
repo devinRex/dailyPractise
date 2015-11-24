@@ -1,0 +1,6 @@
+1.字符串中取得字母重复数量
+2.js ployfill foreach
+3.function bind
+4.deep clone
+5.Type检测类型
+6.输出string实现string的全排列

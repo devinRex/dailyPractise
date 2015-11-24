@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>fileReader</title>
+</head>
+<body>
+	<input type="file" id="files-list" />
+	<div id="output"></div>
+	<div id="progess"></div>
+	<script>
+	/*
+	方法
+	*readAsText(file,encoding):以纯文本形式读取文件，将读取到的文本保存在result属性中
+	*readAsDataURL(file): 读取文件并将文件以数据URI的形式保存在result属性中
+	*readAsBinaryString(file): 读取文件并将一个字符串保存在result中
+	*readAsArrayBuffer(file): 读取文件并将一个包含文件内容的ArrayBuffer保存在result属性中
+	*/
+	/*
+		属性
+		progress 每50ms触发一次
+		error
+		load 文件成功加载后
+	*/
+	var filesList = document.getElementById("files-list");
+	filesList.addEventListener("change", function(event) {
+		var info = "",
+			output = document.getElementById("output");
+			progress = document.getElementById("progess");
+			files = event.target.files,
+			type = "default",
+			reader = new FileReader();
+		if(/image/.test(files[0].type)) {
+			reader.readAsDataURL(files[0]);
+			type = "image";
+		} else {
+			reader.readAsText(files[0]);
+			type = "text";
+		}
+
+		reader.onerror = function () {
+			output.innerHTML = "Could not read file, error code is " + reader.error.code;
+		};
+
+		reader.onprogress = function (event) {
+			if(event.lengthComputable) {
+				progress.innerHTML = event.loaded + "/" + event.total;
+			}
+		};
+
+		reader.onload = function () {
+			var html = "";
+			switch(type) {
+				case "image":
+					html = "<img src =\"" + reader.result + "\">";
+					break;
+				case "text":
+					html = reader.result;
+					break;
+			}
+			output.innerHTML = html;
+		}
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数据结构与算法中的数组</title>
+</head>
+<body>
+	<script>
+	function StudentScore() {
+		this.dataStore = [];
+	}
+	StudentScore.prototype.add = function(score) {
+		this.dataStore.push(score);
+	}
+	StudentScore.prototype.average = function() {
+		var total = 0;
+		for(var i = 0, len = this.dataStore.length; i < len; i++) {
+			total += this.dataStore[i];
+		}
+		return total / len;
+	}
+
+	function ConsoleWord(){
+		this.dataStore = [];
+	}
+	ConsoleWord.prototype.add = function(score) {
+		var b = [];
+		if(Object.prototype.toString.call(score) === "[object Array]"){
+			this.dataStore = this.dataStore.concat(score);
+		}else{
+			this.dataStore.push(score);
+		}
+	}
+	ConsoleWord.prototype.reverses = function() {
+		this.dataStore.reverse();
+		return this.dataStore.join(',');
+	}
+	ConsoleWord.prototype.console = function() {
+		return this.dataStore.join(",");
+	}
+	var a = new ConsoleWord();
+	a.add(["a",'b','c','d','e']);
+	console.log(a.console());
+	</script>
+</body>
+</html>

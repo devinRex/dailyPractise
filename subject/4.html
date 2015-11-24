@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deep</title>
+</head>
+<body>
+	<script>
+	function deepClone(obj, son){
+		var	 i,
+			 toStr = Object.prototype.toString;
+		son = son || toStr.call(obj) === "[object Array]" ? [] : {};
+		if(typeof obj !== "object") {
+			return false;
+		}
+		for(i in obj){
+			if(typeof obj[i] === "object") {loading
+				son[i] = toStr.call(obj[i])=== "[object Array]" ? [] : {};
+				deepClone(obj[i], son[i]);
+			} else {
+				son[i] = obj[i];
+			}
+		}
+		return son;
+	};
+	var a = {a:123,b:[1,2,3,4], c:{a:1}};
+	var b = deepClone(a);
+	console.log(b);
+	</script>
+</body>
+</html>

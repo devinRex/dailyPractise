@@ -1,0 +1,39 @@
+.car{
+	animation-name: drive;
+	animation-duration: 2s;
+	animation-timing-function: ease-in;
+	animation-iteration-count: 2;
+	animation-fill-mode:forwards;
+}
+@keyframes drive{
+	from{
+		transform: translateX(0);
+	}
+	to{
+		transform: translateX(400px);
+	}
+}
+
+body{
+	margin:3em 10%;
+	background: #333;
+}
+
+.ball{
+	animation-name: ballmove;
+	animation-duration: 2s;
+	animation-iteration-count:1;
+	animation-delay:2S;
+	animation-fill-mode:forwards;
+}
+@keyframes ballmove {
+	0% {
+		transform: translateX(0) rotate(0);
+	}
+	20%{
+		transform: translateX(-10px) rotate(-0.5turn);
+	}
+	100%{
+		transform: translateX(450px) rotate(2turn);
+	}
+}

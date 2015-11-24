@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>domready</title>
+</head>
+<body>
+<img src="http://b.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1fb88122b3354e251f94ca5fab.jpg" alt="">
+<script>
+	function onDOMContentLoaded(onready, config){
+		this.conf = {
+			enableMozDOMReady: true
+		};
+		if(config) {
+			for(var p in config) {
+				this.conf[p] = config[p];
+			}
+		}
+		var isReady = false;
+		function doReady() {
+			if(isReady) return;
+			isReady = true;
+			onready();
+		}
+		if(document.addEventListener) {
+			document.addEventListener("onDOMContentLoaded", function(){
+				document.removeEventListener("onDOMContentLoaded", arguments.callee, false);
+				doReady();
+			}, false);
+			window.addEventListener('load',doReady,false);
+		} else if(document.attachEvent) {
+			document.attachEvent("onreadystatechange", function(){
+				if(document.readyState === "complete") {
+					document.detachEvent("onreadystatechange", arguments.callee,false);
+					doReady();
+				}
+			});
+			if(document.documentElement.doScroll && typeof window.frameElement === "undefined") {
+				(function(){
+					if(isReady) return;
+					try{
+						document.documentElement.doScroll('left');
+					} catch(error) {
+						setTimeout(arguments.callee, 0);
+						return;
+					}
+					doReady();
+				}());
+			}
+			window.attachEvent('onload',doReady);
+		}
+	}
+	onDOMContentLoaded(function(){alert(1)});
+	onDOMContentLoaded(function(){alert(2)});
+	
+</script>
+	
+</body>
+</html>

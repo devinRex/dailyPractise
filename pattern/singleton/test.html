@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>singleton</title>
+</head>
+<body>
+	<button id="loginBtn">登录</button>
+	<script>
+	var createLoginLayer = (function () {
+		var div;
+		return function () {
+			if(!div) {
+				div = document.createElement('div');
+				div.innerHTML = "我是登录浮窗";
+				div.style.display = 'name';
+				document.body.appendChild(div);
+			}
+			return div;
+		};
+	}());
+	document.getElementById("loginBtn").onclick = function () {
+		var loginLayer = createLoginLayer();
+		loginLayer.style.display = 'block';
+	};
+	var TrailLayer = {
+    _ifShow: false,
+    init: function() {
+        this._render();
+        this._bindUI();
+    },
+    _render: function() {
+
+    },
+    _bindUI: function() {
+        var $layer = $(".trail-layer");
+        $("#trail-btn").on("click", function(){
+            if(!this._ifShow) {
+                this._ifShow = true;
+                //$layer.addClass("animated zoomInDown");
+                $layer.show();
+
+            } else {
+                this._ifShow = false;
+                $layer.hide();
+            }
+        });
+    }
+};
+TrailLayer.init();translateY(-277px)
+	</script>
+</body>
+</html>

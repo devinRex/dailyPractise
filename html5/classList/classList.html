@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>classList属性</title>
+</head>
+<body>
+	<div class="bd user disable" id="test" onclick="alert(id)">ssss</div>
+	<script>
+	var test = document.getElementById("test");
+	test.classList.remove("disable");
+	test.classList.add("disable");
+	test.classList.toggle("disable");
+	console.log(test.classList.contains("disable"));
+	</script>
+</body>
+</html>

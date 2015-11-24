@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>管理localstorgae</title>
+</head>
+<body>
+	<script>
+	function set(key, v) {
+		var curTime = new Date().getTime();
+		localStorage.setItem(key, JSON.stringify({data:v, time: curTime}));
+	}
+
+	function get(key, exp) {
+		var data = localStorage.getItem(key);
+		var dataObj = JSON.parse(data);
+		if(new Date().getTime - dataObj.time > exp) {
+			console.log("expires");
+		} else {
+			console.log("data = " + dataObj.data);
+		}
+	}
+	</script>
+</body>
+</html>

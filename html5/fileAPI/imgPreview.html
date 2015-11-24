@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片预览</title>
+</head>
+<body>
+	<script>
+	window.check = function(){
+		var input = document.getElementById("file");
+		if(input.files){
+			var f = input.files[0];
+			var render = new FileReader();
+			render.onload = function(e) {
+				var data = e.target.result;
+
+				var image = new Image();
+
+				image.onload = function(){
+					var width = images.width;
+					var height = image.height;
+					alert(width + '======'+f.size);
+				};
+				image.src = data;
+			};
+			render.readAsDataURL(f);
+		} else {
+			
+		}
+	}
+	</script>
+</body>
+</html>

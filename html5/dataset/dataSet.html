@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dataset</title>
+</head>
+<body>
+<p>要注意的是dataset取和设置值最好是使用小写</p>
+	<div id="myDiv" data-appId="12345" data-myname="Nicholas"></div>
+	<script>
+	var div = document.getElementById("myDiv");
+	
+	var myname = div.dataset.myname;
+	div.dataset.appid = "23456";
+	var appId = div.dataset.appid;
+	console.log(appId);
+	</script>
+</body>
+</html>

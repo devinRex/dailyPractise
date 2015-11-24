@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>function bind</title>
+</head>
+<body>
+	<script>
+	Function.prototype.bind1 = function(context) {
+		var self = this;
+		return function(){
+			return self.apply(context, arguments);
+		}
+	}
+	var obj = {
+		name :"seven"
+	};
+	var func = function(){
+		alert(this.name);
+	}.bind1(obj);
+	func();
+	Function.prototype.bind2 = function() {
+		var self = this;
+		var context = [].shift.call(arguments);
+		var args = [].slice.call(arguments);
+		return function(){
+			return self.apply(context, [].concat.apply(args, arguments));
+		}
+	};
+	var func = function(a, b, c, d) {
+		alert(this.name);
+		alert([a, b, c, d]);
+	}.bind2(obj, 1, 2);
+	func(3,4);
+	</script>
+</body>
+</html>

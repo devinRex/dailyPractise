@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>extend</title>
+</head>
+<body>
+	<script>
+	var extend = function () {
+		var value = 0;
+		return {
+			call: function () {
+				value++;
+				console.log(value);
+			}
+		};
+	};
+	</script>
+</body>
+</html>
