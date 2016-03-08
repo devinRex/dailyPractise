@@ -1,0 +1,15 @@
+CACHE MANIFEST
+version 5.0
+#css
+resource/css/animate.css
+
+#js
+resource/js/frozen.js
+resource/js/mod.js
+
+#img
+resource/img/guanche_bg1.jpg
+resource/img/guanche_bg2.jpg
+
+NETWORK:
+*
