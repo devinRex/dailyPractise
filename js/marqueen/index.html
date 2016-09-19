@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//公告相关内容
+    var Announce = (function () {
+        var _unitWidth = $("body").width();
+        function AnnouncesTru() {}
+        AnnouncesTru.prototype.init = function (opts) {
+            var t = this;
+            t.wrap = opts.wrap;
+            t.ifShow({
+                success: function (msg) {
+                    t.msg = msg;
+                    t.render();
+                    t.bind();
+                },
+                error: function () {
+                    if(t.$announcesCont && t.$announcesCont.length > 0) {
+                        t.$announcesCont.hide();
+                    }
+                    t.tmp && t.tmp.set("msg", "");
+                },
+                context: t
+            });
+        };
+        AnnouncesTru.prototype.ifShow = function (opts) {
+            var t = this;
+            load.polling({
+                url: "truck.announcement.announcement",
+                showErrorTip:"",
+                showCodeTip: false,
+                showDefaultTip: false,
+                interval:60 * 30,
+                callback: function (data){
+                    //测试用
+                    //data.message = "尊敬的用户您好，我们将于2016年04月19日（星期二）00:00--06:00 进行服务器维护，届时有很小可能会造成服务中断，如果发生意外，我们会在最短时间内为您恢复服务。";
+                    try{
+                        if($.trim(data.message) === "") {
+                            if(t.$announcesCont && t.$announcesCont.length > 0) {
+                                if(t.$announcesCont.find(".announ-item").length > 0) {
+                                    t.$announcesCont.find(".announ-item").off("transitionend");
+                                }
+                                t.$announcesCont.hide();
+                            }
+                            t.tmp && t.tmp.set("msg", "");
+                            return;
+                        } else {
+                            if(t.$announcesCont && t.$announcesCont.length > 0) {
+                                t.tmp && t.tmp.set("msg", data.message);
+                                t.$announcesCont.show();
+                                t.bind();
+                            } else {
+                                //说明是第一次进入
+                                opts.success && opts.success.call(opts.context, data.message);
+                            }
+                        }
+                    } catch (e) {
+
+                    }
+
+                },
+                error: function () {
+                    opts.error && opts.error.call(opts.context);
+                }
+            });
+        };
+        AnnouncesTru.prototype.render = function () {
+            var t = this,
+                wrap = t.wrap;
+            t.$announcesCont = $('<div class="announ-wrap" id="announces-wrap"></div>');
+                wrap.append(t.$announcesCont);
+            t.tmp = new Ractive({
+                el: '#announces-wrap',
+                template: '#announces-tmp',
+                data: {
+                    msg : t.msg
+                }
+            });
+            t.$announcesCont.append('<div class="announ-bg"></div>');
+            t.$announcesCont.show();
+        };
+        AnnouncesTru.prototype.bind = function () {
+            var t = this;
+            var $item = t.$announcesCont.find(".announ-item");
+            if($item.length <=0 ) {
+                return false;
+            }
+            var itemWidth = $item.width();
+            var time = Math.round(itemWidth/_unitWidth) * 5;
+            _fnTransition($item,time);
+            _animate($item);
+            $item.off("transitionend").on("transitionend", function () {
+                try {
+                    _fnTransition($item,0);
+                    $item[0].style.webkitTransform = "translate3d(0,0,0)";
+                    $item[0].style.transform = "translate3d(0,0,0)";
+                    setTimeout(function () {
+                        _fnTransition($item,time);
+                        _animate($item);
+                    },0);
+                } catch (e) {
+                    return false;
+                }
+            });
+        };
+        function _animate(item) {
+            item[0].style.webkitTransform = "translate3d(-100%,0,0)";
+            item[0].style.transform = "translate3d(-100%,0,0)";
+        }
+        function _fnTransition(dom,num){
+            dom[0].style.webkitTransition = 'all '+num+'s linear';
+            dom[0].style.transition = 'all '+num+'s linear';
+        }
+        return AnnouncesTru;
+    })();
+    try {
+        new Announce().init({
+            wrap: $("header")
+        });
+    } catch (e) {
+
+    }
+	</script>
+</body>
+</html>
