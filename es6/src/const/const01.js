@@ -3,7 +3,16 @@
  */
 const PI = 3.1415;
 // TypeError: Assignment to constant variable.
-PI = 3;
+try {
+     // PI = 3;
+} catch (e) {
+    console.log(e);
+}
+
 
 // SyntaxError: Missing initializer in const declaration
-const foo;
+try {
+    // const foo;
+} catch(e) {
+    console.log(e);
+}
